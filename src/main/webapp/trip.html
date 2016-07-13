@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Eaglixe Sim</title>
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="css/style.css" />
+	</head>
+
+	<body>
+		
+		<div class="navbar navbar-inverse">
+			<div class="container">
+				<div class="navbar-header">
+			      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navBar">
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			      </button>
+			      <a class="navbar-brand" href="#">Eaglixe-Sim</a>
+			    </div>
+			    <div class="collapse navbar-collapse" id="navBar">
+			    	<ul class="nav navbar-nav">
+			    		<li class="active"><a href="#">Home</a></li>
+			    		<li><a href="#">Trip</a></li>
+			    		<li><a href="#">About</a></li>
+			    	</ul>
+			    	<ul class="nav navbar-nav navbar-right">
+			    		<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+			    	</ul>
+			    </div>
+			</div>
+		
+		</div>
+		
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-9">
+					<div id="map">
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div id="info">
+						<ul class="list-unstyled">
+							<li>
+								<div class="form-group">
+								    <div class="input-group">
+								      <div class="input-group-addon"><image src="images/car.png" /></div>
+								      <input type="text" class="form-control" id="exampleInputVin" placeholder="VIN" />
+								    </div>
+								  </div>
+							</li>
+							<li>
+								<div class="form-group">
+								    <div class="input-group">
+								      <div class="input-group-addon"><image src="images/chip.png" /></div>
+								      <input type="text" class="form-control" id="exampleInputDeviceSN" placeholder="S/N" />
+								    </div>
+								  </div>
+							</li>
+							<li class="col-sm-12" style="margin: 3%;">
+								<button type="button" class="btn btn-primary col-sm-6" onclick="createPathFromMarkers();">Create Trip</button>
+							</li>
+							<li class="col-sm-12" style="margin: 3%;">
+								<button type="button" class="btn btn-warning col-sm-6" onclick="deletePathFromMarkers();">Delete Trip</button>
+							</li>
+							<li class="col-sm-12" style="margin: 3%;">
+								<button type="button" class="btn btn-warning col-sm-6" onclick="deleteMarkers();">Delete Points</button>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+			
+			
+		<script src="js/libs/angular.min.js"></script>
+		<script src="js/libs/jquery-1.11.1.min.js"></script>
+		<script src="js/libs/bootstrap.min.js"></script>
+		<script async defer
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCyo9WZ1ALP1zO5LxzRXdlXSVxU4ynVsz4&v=3&callback=initMap">
+		</script>
+		<script src="js/map1.js"></script>
+		
+	</body>
+</html>

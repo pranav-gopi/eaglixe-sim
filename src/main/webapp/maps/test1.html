@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Eaglixe-Sim</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<style>
+html, body {
+	height: 100%;
+}
+
+#map {
+	margin: 3% auto auto 5%;
+	width: 70%;
+	height: 80%;
+}
+</style>
+</head>
+<body>
+	
+	<button onclick="createPathFromMarkers()">createTrip</button>
+	
+	<div id="map"></div>
+
+	<script type="text/javascript">
+		var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+		var labelIndex = 0;
+		markers = [];
+
+		function initMap() {
+			var mapStyle = getMapStyle();
+
+			var bangalore = {
+				lat : 12.97,
+				lng : 77.59
+			};
+			map = new google.maps.Map(document.getElementById('map'), {
+				zoom : 12,
+				center : bangalore
+			});
+			
+			// This event listener calls addMarker() when the map is clicked.
+			  google.maps.event.addListener(map, 'click', function(event) {
+			    addMarker(event.latLng, map);
+			  });
+
+			  // Add a marker at the center of the map.
+			  addMarker(bangalore, map);
+			  
+			  
+			  flightPlanCoordinates = [
+			                               {lat: 37.772, lng: -122.214},
+			                               {lat: 21.291, lng: -157.821},
+			                               {lat: -18.142, lng: 178.431},
+			                               {lat: -27.467, lng: 153.027}
+			                             ];
+             var flightPath = new google.maps.Polyline({
+               path: flightPlanCoordinates,
+               geodesic: true,
+               strokeColor: '#FF0000',
+               strokeOpacity: 1.0,
+               strokeWeight: 2
+             });
+
+             flightPath.setMap(map);
+			
+		}
+		
+		var createPathFromMarkers = function(){
+			var pathPoints = [];
+			for(var i=0;i<markers.length;i++){
+				var marker = markers[i];
+				pathPoints.push(marker.getPosition().toJSON());
+			}
+			path = new google.maps.Polyline({
+               path: pathPoints,
+               geodesic: true,
+               strokeColor: '#FF0000',
+               strokeOpacity: 1.0,
+               strokeWeight: 2
+             });
+
+			path.setMap(map);
+		}
+		
+		// Adds a marker to the map.
+		function addMarker(location, map) {
+			
+			var image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
+		  // Add the marker at the clicked location, and add the next-available label
+		  // from the array of alphabetical characters.
+		  var marker = new google.maps.Marker({
+		    position: location,
+		    label: labels[labelIndex++ % labels.length],
+		    map: map,
+		    draggable: true
+		  });
+		  
+		  markers.push(marker);
+		}
+
+		var getMapStyle = function() {
+			var styleArray = [ {
+				featureType : "all",
+				stylers : [ {
+					saturation : -80
+				} ]
+			}, {
+				featureType : "road.arterial",
+				elementType : "geometry",
+				stylers : [ {
+					hue : "#00ffee"
+				}, {
+					saturation : 50
+				} ]
+			}, {
+				featureType : "poi.business",
+				elementType : "labels",
+				stylers : [ {
+					visibility : "off"
+				} ]
+			} ];
+
+			// Create a new StyledMapType object, passing it the array of styles,
+			// as well as the name to be displayed on the map type control.
+			var styledMap = new google.maps.StyledMapType(styleArray, {
+				name : "Styled Map"
+			});
+
+			return styledMap;
+		}
+	</script>
+
+	<script async defer
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCyo9WZ1ALP1zO5LxzRXdlXSVxU4ynVsz4&v=3&callback=initMap">
+		
+	</script>
+</body>
+</html>

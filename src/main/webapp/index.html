@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Eaglixe-Sim</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<style>
+html, body {
+	height: 100%;
+}
+
+#map {
+	margin: 0 auto;
+	width: 90%;
+	height: 90%;
+}
+</style>
+</head>
+<body>
+	Its nice
+
+	<div id="map"></div>
+
+	<script>
+        	//var map;
+            function initMap() {
+            	var mapStyle = getMapStyle();
+            	
+            	map = createMap();	    
+            	//map.setOptions({styles: mapStyle});
+            	
+            	//Associate the styled map with the MapTypeId and set it to display.
+                map.mapTypes.set('map_style', mapStyle);
+            	//map.setMapTypeId('map_style');
+                
+            	marker = createMarker(map);
+                infoWindow = createInfoWindow(marker);
+                marker.addListener('click', function(){
+                	infoWindow.setContent('' + marker.position);
+                	infoWindow.open(map, marker);
+                });
+                
+                var marker2 = createMarker2(map);
+                
+                /* var bounds = new google.maps.LatLngBounds();
+                bounds.extend(marker.position);
+                map.fitBounds(bounds); */
+                
+                
+            }
+            
+          	var getMapStyle = function(){
+          		var styleArray = [
+          		                {
+          		                  featureType: "all",
+          		                  stylers: [
+          		                    { saturation: -80 }
+          		                  ]
+          		                },{
+          		                  featureType: "road.arterial",
+          		                  elementType: "geometry",
+          		                  stylers: [
+          		                    { hue: "#00ffee" },
+          		                    { saturation: 50 }
+          		                  ]
+          		                },{
+          		                  featureType: "poi.business",
+          		                  elementType: "labels",
+          		                  stylers: [
+          		                    { visibility: "off" }
+          		                  ]
+          		                }
+          		              ];
+          		
+          		// Create a new StyledMapType object, passing it the array of styles,
+          	  	// as well as the name to be displayed on the map type control.
+          	  	var styledMap = new google.maps.StyledMapType(styleArray, {name: "Styled Map"});
+          		
+          		return styledMap;
+          	}
+          	
+            var createMap = function(){
+            	var mapElement = document.getElementById("map");
+                var mapConfig = {
+                	//center: new google.maps.LatLng(55.6468, 37.581),
+                	center: { 
+                        lat: 40.7213549,
+                        lng: -73.9980244
+                    },
+                    zoom: 14,
+                    mapTypeControlOptions: {
+                        mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
+                      }
+                }
+                map = new google.maps.Map(mapElement, mapConfig);
+                return map;
+            }
+            
+            var createMarker = function(map){
+            	var point = {
+            			lat: 40.719526,
+            			lng: -74.0089934
+            	}
+            	var marker = new google.maps.Marker({
+            		position: point,
+            		map: map,
+            		title: 'My Marker',
+            		animation: google.maps.Animation.DROP,
+            		draggable: true
+            	});
+            	marker.addListener('click', toggleBounce);
+            	
+            	return marker;
+            }
+            function toggleBounce() {
+            	  if (marker.getAnimation() !== null) {
+            	    marker.setAnimation(null);
+            	  } else {
+            	    marker.setAnimation(google.maps.Animation.BOUNCE);
+            	  }
+            	}
+            
+            var createMarker2 = function(map){
+            	var point = {
+            			lat: 40.719526,
+            			lng: -74.0289934
+            	}
+            	var marker = new google.maps.Marker({
+            		position: point,
+            		map: map,
+            		title: 'Custom marker',
+            		
+            	});
+            }
+            
+            var createInfoWindow = function(marker){
+            	var infoWindow = new google.maps.InfoWindow({
+            		//content: '' + marker.position
+            	});
+            	return infoWindow;
+            }
+        </script>
+
+
+	<script async defer
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCyo9WZ1ALP1zO5LxzRXdlXSVxU4ynVsz4&v=3&callback=initMap">
+        </script>
+</body>
+</html>
+

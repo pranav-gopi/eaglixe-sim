@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Eaglixe Sim</title>
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="css/style.css" />
+	</head>
+
+	<body>
+		
+		<div class="navbar navbar-inverse">
+			<div class="container">
+				<div class="navbar-header">
+			      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navBar">
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			      </button>
+			      <a class="navbar-brand" href="#">Eaglixe-Sim</a>
+			    </div>
+			    <div class="collapse navbar-collapse" id="navBar">
+			    	<ul class="nav navbar-nav">
+			    		<li class="active"><a href="#">Home</a></li>
+			    		<li><a href="#">Trip</a></li>
+			    		<li><a href="#">About</a></li>
+			    	</ul>
+			    	<ul class="nav navbar-nav navbar-right">
+			    		<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+			    	</ul>
+			    </div>
+			</div>
+		
+		</div>
+		
+		<div class="container" ng-controller="MapController as myMap">
+			<div class="row">
+				<div class="col-sm-7">
+					<div id="map">
+					</div>
+					
+					
+				</div>
+				<div class="col-sm-5" ng-controller="InfoController as info">
+					<div id="info">
+						<ul class="list-unstyled">
+							<li>
+								<div class="form-group">
+								<label class="label-info">{{ vin}}</label>
+								    <div class="input-group">
+								      <div class="input-group-addon"><image src="images/car.png" /></div>
+								      <input type="text" class="form-control" id="exampleInputVin" placeholder="VIN" ng-model="vin"/>
+								    </div>
+								  </div>
+							</li>
+							<li>
+								<div class="form-group">
+								    <div class="input-group">
+								      <div class="input-group-addon"><image src="images/chip.png" /></div>
+								      <input type="text" class="form-control" id="exampleInputDeviceSN" placeholder="S/N" />
+								    </div>
+								  </div>
+							</li>
+							<li class="col-sm-12" style="margin: 3%;">
+								<button type="button" class="btn btn-primary col-sm-3" onclick="createPathFromMarkers();">Create Trip</button>
+							</li>
+							<li class="col-sm-12" style="margin: 3%;">
+								<button type="button" class="btn btn-warning col-sm-3" onclick="deletePathFromMarkers();">Delete Trip</button>
+								<span class="col-sm-1"></span>
+								<button type="button" class="btn btn-warning col-sm-3" onclick="deleteMarkers();">Delete Points</button>
+							</li>
+							<li>
+							<table class="table table-hover">
+							 <tr>
+								<th>Lat</th>
+								<th>Lng</th>
+								<th>Dist</th>
+								<th>Time</th>
+							</tr>
+							 <tr ng-repeat="checkPoint in checkPoints">
+								<td>{{checkPoint.marker.position.lat() }}</td>
+								<td>{{checkPoint.marker.position.lng() }}</td>
+								<td>{{checkPoint.distance }}</td>
+							</tr>
+							</table>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+			
+			
+		<script src="js/libs/angular.min.js"></script>
+		<script src="js/libs/jquery-1.11.1.min.js"></script>
+		<script src="js/libs/bootstrap.min.js"></script>
+		<script
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCyo9WZ1ALP1zO5LxzRXdlXSVxU4ynVsz4&sensor=false">
+		</script>
+		<script src="js/myApp.js"></script>
+		
+	</body>
+</html>
